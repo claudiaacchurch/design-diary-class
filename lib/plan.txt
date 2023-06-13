@@ -1,0 +1,38 @@
+/// As a user
+/// So that I can record my experiences
+/// I want to keep a regular diary
+
+/// As a user
+/// So that I can reflect on my experiences
+/// I want to read my past diary entries
+
+/// As a user
+/// So that I can reflect on my experiences in my busy day
+/// I want to select diary entries to read based on how much
+/// time I have and my reading speed
+
+/// As a user
+/// So that I can keep track of my tasks
+/// I want to keep a todo list along with my diary
+
+/// As a user
+/// So that I can keep track of my contacts
+/// I want to see a list of all of the mobile
+/// phone numbers in all my diary entries
+
+class Organiser: 
+Method: all() for diary_entry & todo_task. 
+Method: reading-time(wpm, minutes)-best for the given time. 
+Method: return_contacts: returns list of mobile phone numbers
+if in diary_entry.
+
+class DiaryEntry: 
+init (title, contents, date_added); 
+Method: read(title) returns contents of entry
+
+class TodoTask: 
+init(task) is_complete;
+Method: completed(returns completed items);
+Method: incomplete(returns incomplete items)
+Method: mark_complete
+
