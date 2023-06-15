@@ -1,15 +1,31 @@
 import re
 from datetime import datetime, date
 
-class Organiser:
+
+class DiaryEntry:
+    '''As a user
+    So that I can record my experiences
+    I want to keep a regular diary'''
+
+    def __init__(self, title, contents, date_added):
+        if not isinstance(title, str) or not isinstance(contents, str):
+            raise Exception("Arguments must be of type str")
+        elif not isinstance(date_added, date):
+            raise Exception("Argument must be of type date")
+        self.title = title
+        self.contents = contents
+        self.date_added = date_added
+    
+    def word_count(self):
+        split_str = self.contents.split()
+        return len(split_str)
+    
+
+class Diary:
     def __init__(self):
         self.all_entries = []
         self.all_contacts = []
-        self.all_todo_tasks = []
-        self.completed_tasks = []
-        self.incomplete_tasks = []
-
-    #DiaryEntry
+    
     def all_diary_entries(self):
         return sorted(self.all_entries, key = lambda x: x.date_added, reverse=True)
     
@@ -35,6 +51,18 @@ class Organiser:
         return best_val
     
     '''As a user
+    So that I can keep track of my contacts
+    I want to see a list of all of the mobile
+    phone numbers in all my diary entries'''
+
+    def return_contacts(self):
+        for entry in self.all_diary_entries():
+            PhoneNumber = re.search(r'\b\d{11}\b', entry.contents) 
+            if PhoneNumber:
+                self.all_contacts.append(PhoneNumber.group()) # .group() extracts string from re.PhoneNumber object
+        return self.all_contacts
+    
+    '''As a user
     So that I can reflect on my experiences
     I want to read my past diary entries'''
 
@@ -46,25 +74,17 @@ class Organiser:
     
         return contents_to_read
 
-    
-    '''As a user
-    So that I can keep track of my contacts
-    I want to see a list of all of the mobile
-    phone numbers in all my diary entries'''
 
-    #Contacts from DiaryEntry
-    def return_contacts(self):
-        for entry in self.all_diary_entries():
-            PhoneNumber = re.search(r'\b\d{11}\b', entry.contents) 
-            if PhoneNumber:
-                self.all_contacts.append(PhoneNumber.group()) # .group() extracts string from re.PhoneNumber object
-        return self.all_contacts
-    
+class TaskList:
     '''As a user
     So that I can keep track of my tasks
     I want to keep a todo list along with my diary'''
 
-    #TodoTask
+    def __init__(self):
+        self.all_todo_tasks = []
+        self.completed_tasks = []
+        self.incomplete_tasks = []
+
     def add_todo_task(self, task):
         self.all_todo_tasks.append(task)
 
@@ -83,29 +103,11 @@ class Organiser:
                 self.completed_tasks.append(task)
         return self.completed_tasks
 
-
-
-class DiaryEntry:
-
-    '''As a user
-    So that I can record my experiences
-    I want to keep a regular diary'''
-
-    def __init__(self, title, contents, date_added):
-        if not isinstance(title, str) or not isinstance(contents, str):
-            raise Exception("Arguments must be of type str")
-        elif not isinstance(date_added, date):
-            raise Exception("Argument must be of type date")
-        self.title = title
-        self.contents = contents
-        self.date_added = date_added
-    
-    def word_count(self):
-        split_str = self.contents.split()
-        return len(split_str)
         
 class TodoTask:
     def __init__(self, task_todo):
+        if type(task_todo) != str:
+            raise Exception("TypeError")
         self.task_todo = task_todo
         self.is_complete = False
 

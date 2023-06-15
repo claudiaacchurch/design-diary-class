@@ -36,3 +36,8 @@ Method: completed(returns completed items);
 Method: incomplete(returns incomplete items)
 Method: mark_complete
 
+Refactored once completed as Organiser is too big. 
+Need to split:
+A - DiaryEntry -> Diary
+B - TaskTodo -> TaskList 
+C - decide if keeping organiser with access to all together, or remove.
